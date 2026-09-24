@@ -1,7 +1,7 @@
 //TODO - Run manually one time outside the Github action, avoid looping on trust boundary dependency
-// Configuring an IAM role for bootstrap secret with trusted "github-actions-infrastructure" repository assuming
-resource "aws_iam_role" "github-actions-bootstrap-secret-role" {
-  name = "github-actions-bootstrap-secret-role"
+// Configuring an IAM role for bootstrap role with trusted "github-actions-infrastructure" repository assuming
+resource "aws_iam_role" "github-actions-bootstrap-role" {
+  name = "github-actions-bootstrap-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [

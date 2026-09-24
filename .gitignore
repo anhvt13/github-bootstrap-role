@@ -1,0 +1,22 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+
+# Keep Terraform dependency lock file
+!.terraform.lock.hcl
+
+# Secrets / credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
+
+# macOS / IDE
+.DS_Store
+.idea/
+*.iml
+.vscode/

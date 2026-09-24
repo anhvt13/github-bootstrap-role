@@ -112,20 +112,7 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
         Effect = "Allow"
         Action = [
           "iam:GetOpenIDConnectProvider",
-          "iam:DeleteOpenIDConnectProvider"
-        ]
-        Resource = [
-          "arn:aws:iam::249899229305:oidc-provider/token.actions.githubusercontent.com"
-        ]
-      },
-
-      # ============================================================
-      # IAM Manage Provider
-      # ============================================================
-      {
-        Sid    = "ManageOIDCProvider"
-        Effect = "Allow"
-        Action = [
+          "iam:DeleteOpenIDConnectProvider",
           "iam:CreateOpenIDConnectProvider"
         ]
         Resource = [

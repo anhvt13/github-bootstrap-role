@@ -30,7 +30,7 @@ resource "aws_iam_role" "github-actions-bootstrap-role" {
 // Explicit least privilege policies on bootstrap secret role policy
 resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
   name = "github-actions-bootstrap-secret-policy"
-  role = aws_iam_role.github-actions-bootstrap-secret-role.id
+  role = aws_iam_role.github-actions-bootstrap-role.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [

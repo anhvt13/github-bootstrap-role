@@ -18,7 +18,9 @@ resource "aws_iam_role" "github-actions-bootstrap-role" {
           StringLike = {
             "token.actions.githubusercontent.com:sub" = [
               "repo:anhvt13@42229955/github-actions-infrastructure@1375902132:ref:refs/heads/main",
-              "repo:anhvt13@42229955/github-actions-infrastructure@1375902132:environment:prod"
+              "repo:anhvt13@42229955/github-actions-infrastructure@1375902132:environment:prod",
+              "repo:anhvt13@42229955/capstone-infrastructure@1375700110:ref:refs/heads/main",
+              "repo:anhvt13@42229955/capstone-infrastructure@1375700110:environment:prod"
             ]
           }
         }
@@ -44,9 +46,9 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "secretsmanager:PutSecretValue"
         ]
         Resource = [
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/tls",
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/driver/tls",
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/oauth2"
+          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/tls-*",
+          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/driver/tls-*",
+          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/oauth2-*"
         ]
       },
 
@@ -96,7 +98,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "iam:ListInstanceProfilesForRole",
           "iam:DeleteRole",
           "iam:CreateRole",
-          "iam:PutRolePolicy"
+          "iam:PutRolePolicy",
+          "iam:UpdateAssumeRolePolicy"
         ]
         Resource = [
           "arn:aws:iam::249899229305:role/github-actions-bootstrap-secret-role",

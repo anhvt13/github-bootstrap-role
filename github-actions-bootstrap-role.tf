@@ -105,7 +105,9 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "arn:aws:iam::249899229305:role/github-actions-bootstrap-secret-role",
           "arn:aws:iam::249899229305:role/github-actions-infrastructure-deployment-role",
           "arn:aws:iam::249899229305:role/capstone-ecs-task-role",
-          "arn:aws:iam::249899229305:role/capstone-ecs-task-execution-role"
+          "arn:aws:iam::249899229305:role/capstone-ecs-task-execution-role",
+          "arn:aws:iam::249899229305:role/github-actions-bff-deployment-role",
+          "arn:aws:iam::249899229305:role/github-actions-driver-deployment-role"
         ]
       },
 

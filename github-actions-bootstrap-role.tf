@@ -70,7 +70,11 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "s3:GetObject",
           "s3:PutObject"
         ]
-        Resource = "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/oidc/terraform.tfstate"
+        Resource = [
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/oidc/terraform.tfstate",
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/infras-deployment-role/terraform.tfstate",
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/ecs-deployment-role/terraform.tfstate"
+        ]
       },
       {
         Sid    = "TerraformStateLock"
@@ -80,7 +84,11 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/oidc/terraform.tfstate.tflock"
+        Resource = [
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/oidc/terraform.tfstate.tflock",
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/infras-deployment-role/terraform.tfstate.tflock",
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/ecs-deployment-role/terraform.tfstate.tflock"
+        ]
       },
 
       # ============================================================

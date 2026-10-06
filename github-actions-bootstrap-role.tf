@@ -48,7 +48,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
         Resource = [
           "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/tls-*",
           "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/driver/tls-*",
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/oauth2-*"
+          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/oauth2-*",
+          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bg/tls-*"
         ]
       },
 

@@ -108,7 +108,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "iam:DeleteRole",
           "iam:CreateRole",
           "iam:PutRolePolicy",
-          "iam:UpdateAssumeRolePolicy"
+          "iam:UpdateAssumeRolePolicy",
+          "iam:AttachRolePolicy"
         ]
         Resource = [
           "arn:aws:iam::249899229305:role/github-actions-bootstrap-secret-role",
@@ -116,7 +117,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "arn:aws:iam::249899229305:role/capstone-ecs-task-role",
           "arn:aws:iam::249899229305:role/capstone-ecs-task-execution-role",
           "arn:aws:iam::249899229305:role/github-actions-bff-deployment-role",
-          "arn:aws:iam::249899229305:role/github-actions-driver-deployment-role"
+          "arn:aws:iam::249899229305:role/github-actions-driver-deployment-role",
+          "arn:aws:iam::249899229305:role/github-actions-infrastructure-deployment-role"
         ]
       },
 
@@ -133,6 +135,30 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
         ]
         Resource = [
           "arn:aws:iam::249899229305:oidc-provider/token.actions.githubusercontent.com"
+        ]
+      },
+
+      # ============================================================
+      # IAM Role Policy Management
+      # ============================================================
+      {
+        Sid    = "ManageRolePolicy"
+        Effect = "Allow"
+        Action = [
+          "iam:CreatePolicy",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "iam:ListPolicyVersions",
+          "iam:DeletePolicy"
+
+        ]
+        Resource = [
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-data-policy",
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-ecs-policy",
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-elb-policy",
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-iam-policy",
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-network-policy",
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-operation-policy"
         ]
       }
     ]

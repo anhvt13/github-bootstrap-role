@@ -151,7 +151,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "iam:GetPolicyVersion",
           "iam:ListPolicyVersions",
           "iam:DeletePolicy",
-          "iam:CreatePolicyVersion"
+          "iam:CreatePolicyVersion",
+          "iam:DeletePolicyVersion"
 
         ]
         Resource = [

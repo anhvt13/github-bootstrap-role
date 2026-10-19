@@ -109,7 +109,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "iam:CreateRole",
           "iam:PutRolePolicy",
           "iam:UpdateAssumeRolePolicy",
-          "iam:AttachRolePolicy"
+          "iam:AttachRolePolicy",
+          "iam:DetachRolePolicy"
         ]
         Resource = [
           "arn:aws:iam::249899229305:role/github-actions-bootstrap-secret-role",
@@ -149,7 +150,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "iam:GetPolicy",
           "iam:GetPolicyVersion",
           "iam:ListPolicyVersions",
-          "iam:DeletePolicy"
+          "iam:DeletePolicy",
+          "iam:CreatePolicyVersion"
 
         ]
         Resource = [

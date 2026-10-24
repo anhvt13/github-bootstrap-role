@@ -161,7 +161,8 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "arn:aws:iam::249899229305:policy/github-actions-capstone-elb-policy",
           "arn:aws:iam::249899229305:policy/github-actions-capstone-iam-policy",
           "arn:aws:iam::249899229305:policy/github-actions-capstone-network-policy",
-          "arn:aws:iam::249899229305:policy/github-actions-capstone-operation-policy"
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-operation-policy",
+          "arn:aws:iam::249899229305:policy/github-actions-capstone-cdn-policy"
         ]
       }
     ]

@@ -1,5 +1,6 @@
-//TODO - Run manually one time outside the Github action, avoid looping on trust boundary dependency
-// Configuring an IAM role for bootstrap role with trusted "github-actions-infrastructure" repository assuming
+//TODO - Prerequisite: run manually only once before any Github action workflow, avoid looping on trust boundary dependency
+// Configuring an IAM role for bootstrap roles with trusted repositories consumer
+
 resource "aws_iam_role" "github-actions-bootstrap-role" {
   name = "github-actions-bootstrap-role"
   assume_role_policy = jsonencode({
@@ -36,26 +37,10 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      # ========================
-      # Least privilege on Secret Manager resources
-      # ========================
-      {
-        Sid    = "SecretsManager"
-        Effect = "Allow"
-        Action = [
-          "secretsmanager:PutSecretValue"
-        ]
-        Resource = [
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/tls-*",
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/driver/tls-*",
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bff/oauth2-*",
-          "arn:aws:secretsmanager:ap-southeast-1:249899229305:secret:capstone/bg/tls-*"
-        ]
-      },
+      # ============================================================
+      # S3 - Access Capstone project terraform state bucket policy
+      # ============================================================
 
-      # ============================================================
-      # S3 - Terraform OIDC state bucket
-      # ============================================================
       {
         Sid    = "TerraformStateBucket"
         Effect = "Allow"
@@ -64,6 +49,7 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
         ]
         Resource = "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an"
       },
+
       {
         Sid    = "TerraformStateObject"
         Effect = "Allow"
@@ -72,11 +58,10 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "s3:PutObject"
         ]
         Resource = [
-          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/oidc/terraform.tfstate",
-          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/infras-deployment-role/terraform.tfstate",
-          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/ecs-deployment-role/terraform.tfstate"
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/infras-deployment-role/terraform.tfstate"
         ]
       },
+
       {
         Sid    = "TerraformStateLock"
         Effect = "Allow"
@@ -86,9 +71,7 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "s3:DeleteObject"
         ]
         Resource = [
-          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/oidc/terraform.tfstate.tflock",
-          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/infras-deployment-role/terraform.tfstate.tflock",
-          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/ecs-deployment-role/terraform.tfstate.tflock"
+          "arn:aws:s3:::capstone-terraform-state-249899229305-ap-southeast-1-an/infras-deployment-role/terraform.tfstate.tflock"
         ]
       },
 
@@ -113,12 +96,6 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "iam:DetachRolePolicy"
         ]
         Resource = [
-          "arn:aws:iam::249899229305:role/github-actions-bootstrap-secret-role",
-          "arn:aws:iam::249899229305:role/github-actions-infrastructure-deployment-role",
-          "arn:aws:iam::249899229305:role/capstone-ecs-task-role",
-          "arn:aws:iam::249899229305:role/capstone-ecs-task-execution-role",
-          "arn:aws:iam::249899229305:role/github-actions-bff-deployment-role",
-          "arn:aws:iam::249899229305:role/github-actions-driver-deployment-role",
           "arn:aws:iam::249899229305:role/github-actions-infrastructure-deployment-role"
         ]
       },
@@ -153,7 +130,6 @@ resource "aws_iam_role_policy" "github-actions-bootstrap-secret-policy" {
           "iam:DeletePolicy",
           "iam:CreatePolicyVersion",
           "iam:DeletePolicyVersion"
-
         ]
         Resource = [
           "arn:aws:iam::249899229305:policy/github-actions-capstone-data-policy",
